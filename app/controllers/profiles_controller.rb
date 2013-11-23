@@ -27,8 +27,10 @@ class ProfilesController < ApplicationController
     @user = User.find(current_user.id)
     @profile = Profile.new
     @profile.user_id = @user.id
+
     respond_to do |format|
-      format.html # new.html.erb format.json { render json: @profile }
+      format.html # new.html.erb
+      format.json { render json: @profile }
     end
   end
 

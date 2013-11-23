@@ -82,16 +82,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def search
-    @search_item=params[:q]
-    st="%"{params[:q]}%"
-    @items = Item.where("Title like ? or Description like ?", st, st)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @items }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -103,4 +93,15 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:title, :description, :price, :image_url, :category)
     end
+end
+
+def search
+  @search_term=params[:q]
+  st='%{params[:q]}%'
+    @items = Item.where('Title like ? or Description like ?', st, st)
+
+  respond_to do |format|
+    format.html # index.html.erb
+    format.json { render json: @items }
+  end
 end

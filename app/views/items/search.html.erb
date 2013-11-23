@@ -1,10 +1,11 @@
 <h1>Search Product Catalog</h1>
 <br />
 <h3>Searching For: <%= @search_term %></h3> <table class="catalog">
-  <% if @items.length == 0 %>
+  <% if @items.to_s.length == 0 %>
       <br />
       <h2>No Products found for this search term!!</h2> <% end %>
-  <% @items.each do |item| %> <tr>
+  <% @items.each do |item| %>
+  <tr>
   <td>
     <div class="image">
       <%= link_to (image_tag item.image_url, :style => "height:100px"), item %> </div>
@@ -24,7 +25,8 @@
     <% else %>
         <a href="/cart/<%= item.id %>">Add to Cart</a><br><br>
     <% end %> </div>
-</td> </tr>
+</td>
+</tr>
   <% end %> </table>
 <% if session[:login] == 1 %>
     <p><%= link_to 'New item', new_item_path %></p>
