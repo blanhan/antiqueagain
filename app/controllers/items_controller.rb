@@ -1,10 +1,21 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   # GET /items
   # GET /items.json
+
+  before_filter :authenticate_user!
+  before_filter :ensure_admin, :only => [:new, :create, :edit, :destroy]
+
+  #before_action :set_item, only: [:show, :edit, :update, :destroy]
+
   def index
     @items = Item.all
+  end
+
+
+  def ensure_admin
+    unless current_user && current_user.admin?
+      render :text => "Access Error Message", :status => :unauthorized end
   end
 
   # GET /items/1
@@ -58,6 +69,27 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to items_url }
       format.json { head :no_content }
+    end
+  end
+
+  def category
+    @items=item.find_all_by_category(params[:id])
+    @category=params[:id]
+
+    respond_to do |format|
+      format.html #index.html.erb
+      format.json {render json: @items}
+    end
+  end
+
+  def search
+    @search_item=params[:q]
+    st="%"{params[:q]}%"
+    @items = Item.where("Title like ? or Description like ?", st, st)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
     end
   end
 

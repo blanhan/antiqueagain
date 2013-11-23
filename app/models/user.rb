@@ -10,4 +10,6 @@ class User < ActiveRecord::Base
   attr_accessor :email, :password, :password_confirmation, :remember_me
 
   has_many :orders
+  has_one :profiles
+
 end

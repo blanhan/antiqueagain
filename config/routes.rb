@@ -1,4 +1,6 @@
 Antiqueagain::Application.routes.draw do
+  resources :profiles
+
   get "orderitems/index"
   get "orderitems/show"
   get "orderitems/new"
@@ -28,6 +30,9 @@ Antiqueagain::Application.routes.draw do
   get '/cart/remove/:id' => 'cart#remove'
   get '/clearCart' => 'cart#clearCart'
   get '/checkout' => 'cart#createOrder'
+  get 'myprofile' => 'profiles#myprofile'
+  get '/category/:id' => 'items#category'
+  get '/search' => 'items#search'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
