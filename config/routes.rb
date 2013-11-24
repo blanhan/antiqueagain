@@ -34,6 +34,10 @@ Antiqueagain::Application.routes.draw do
   get '/category/:id' => 'items#category'
   get '/search' => 'items#search'
 
+  get '/admin' => 'user#admin_login'
+  get '/logout' => 'user#logout'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

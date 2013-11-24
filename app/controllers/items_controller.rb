@@ -73,7 +73,7 @@ class ItemsController < ApplicationController
   end
 
   def category
-    @items=item.find_all_by_category(params[:id])
+    @items= item.find_all_by_category(params[:id])
     @category=params[:id]
 
     respond_to do |format|
@@ -97,7 +97,7 @@ end
 
 def search
   @search_term=params[:q]
-  st='%{params[:q]}%'
+  st='%#{params[:q]}%'
     @items = Item.where('Title like ? or Description like ?', st, st)
 
   respond_to do |format|

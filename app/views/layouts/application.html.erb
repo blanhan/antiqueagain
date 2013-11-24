@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<div id='header'>
+  <!-- Header Image Displayes here -->
+</div>
+<div id='menu'>
+  <!-- Header Image Displayes here -->
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
@@ -19,6 +25,21 @@
 <% else %>
     <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %>
 <% end %>
+
+<div id="navbar">
+  <ul>
+    <li><a href='/home'>Home</a></li>
+    <li><a href='/cart'>Cart</a></li>
+    <li><a href='/order'>Order</a></li>
+    <li><a href='/register'>Register</a></li>
+    <li><a href='/contact'>Contact Us</a></li>
+    <li><a href='/signin'>Login</a></li>
+    <li><a href='/logout'>Logout</a></li>
+    <li><a href='/about'>About</a></li>
+    <li><a href='/items'>Products</a></li>
+
+  </ul>
+</div>
 
 <div class="searchbox">
   <h2 class="BoxHeaders">Search</h2>
