@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery
+  before_filter :carts
+  private
 
   def after_sign_in_path_for(resource)
-    "/myprofile"
+    '/myprofile'
+  end
+
+  def carts
+    @cart = session[:cart] || {}
   end
 end

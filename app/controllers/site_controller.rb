@@ -6,15 +6,7 @@ class SiteController < ApplicationController
   def contact
   end
 
-  def login
-  end
-
   def home
   end
 
-  def register
-  end
-
-  def cart
-  end
 end

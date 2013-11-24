@@ -3,33 +3,43 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
 
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
   before_filter :ensure_admin, :only => [:new, :create, :edit, :destroy]
 
   #before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
     @items = Item.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @items }
+    end
   end
 
-
-  def ensure_admin
-    unless current_user && current_user.admin?
-      render :text => "Access Error Message", :status => :unauthorized end
-  end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    @item = Item.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @item }
+    end
   end
 
   # GET /items/new
   def new
     @item = Item.new
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @item }
+    end
   end
 
   # GET /items/1/edit
   def edit
+    @item = Item.find(params[:id])
   end
 
   # POST /items
@@ -40,7 +50,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @item }
+        format.json { render json: @item, status: :created, location: @item }
       else
         format.html { render action: 'new' }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -51,6 +61,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    @item = Item.find(params[:id])
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
@@ -65,6 +76,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
+    @item = Item.find(params[:id])
     @item.destroy
     respond_to do |format|
       format.html { redirect_to items_url }
@@ -82,26 +94,31 @@ class ItemsController < ApplicationController
     end
   end
 
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:title, :description, :price, :image_url, :category)
-    end
-end
-
 def search
   @search_term=params[:q]
-  st='%#{params[:q]}%'
+  st="%#{params[:q]}%"
     @items = Item.where('Title like ? or Description like ?', st, st)
 
   respond_to do |format|
     format.html # index.html.erb
     format.json { render json: @items }
+  end
+end
+
+def ensure_admin
+  unless current_user && current_user.admin?
+    render :text => "Access Error Message", :status => :unauthorized
+  end
+end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_params
+    params.require(:item).permit(:title, :description, :price, :image_url, :category)
   end
 end

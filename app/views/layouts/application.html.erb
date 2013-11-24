@@ -33,10 +33,10 @@
     <li><a href='/order'>Order</a></li>
     <li><a href='/register'>Register</a></li>
     <li><a href='/contact'>Contact Us</a></li>
-    <li><a href='/signin'>Login</a></li>
-    <li><a href='/logout'>Logout</a></li>
     <li><a href='/about'>About</a></li>
     <li><a href='/items'>Products</a></li>
+    <li><%= link_to 'login', new_user_session_path %></li>
+    <li><%= link_to 'logout', destroy_user_session_path, :method => :delete %></li>
 
   </ul>
 </div>
