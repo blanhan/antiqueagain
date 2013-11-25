@@ -97,7 +97,7 @@ class ItemsController < ApplicationController
 def search
   @search_term=params[:q]
   st="%#{params[:q]}%"
-    @items = Item.where('Title like ? or Description like ?', st, st)
+    @items = Item.where("Title like ? or Description like ?", st, st)
 
   respond_to do |format|
     format.html # index.html.erb

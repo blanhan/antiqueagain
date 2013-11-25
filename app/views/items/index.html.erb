@@ -23,7 +23,9 @@
 
           <a href="/cart/<%= item.id %>">Add to Cart</a><br><br>
 
-           <% if current_user.admin? %>
+            <td><%= link_to 'Show', item %></td>
+
+            <% if user_signed_in? && current_user.admin? %>
             <td><%= link_to 'Show', item %></td>
             <td><%= link_to 'Edit', edit_item_path(item) %></td> |
             <td><%= link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -40,7 +42,7 @@
 </table>
 
 
-<% if current_user.admin? %>
+<% if user_signed_in? && current_user.admin? %>
 
 <p><%= link_to 'New item', new_item_path %></p>
 

@@ -14,7 +14,7 @@ end
 
 def ensure_admin
   unless current_user && current_user.admin?
-    redirect_to "/"
+    redirect_to "/home"
     flash[:error] = "You need to be an admin to do that"
   end
 end
