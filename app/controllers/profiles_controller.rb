@@ -1,10 +1,12 @@
 class ProfilesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def myprofile
     profile = Profile.find_by_user_id(current_user.id)
 
-    if profile.nil?
+    if
+    profile.nil?
       redirect_to "/profiles/new"
     else
       @user = User.find(current_user.id)
@@ -53,7 +55,7 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(profile_params)
+    @profile = Profile.new(params[:profile])
 
     respond_to do |format|
       if @profile.save
@@ -83,6 +85,7 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   def destroy
+    @profile = Profile.find(params[:id])
     @profile.destroy
     respond_to do |format|
       format.html { redirect_to profiles_url }
