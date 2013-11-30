@@ -1,12 +1,26 @@
 UserAntique::Application.routes.draw do
-  resources :profiles
+  get "orderitems/index"
+  get "orderitems/show"
+  get "orderitems/new"
+  get "orderitems/edit"
 
-  devise_for :users
+
+  devise_for :users do
+    resources :orders
+  end
+
+  resources :orders do
+    resources :orderitems
+  end
+
+  resources :profiles
+  resources :items
+
   get "cart/index"
   get "site/about"
   get "site/contact"
   get "site/home"
-  resources :items
+
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
@@ -23,7 +37,7 @@ UserAntique::Application.routes.draw do
   get '/myprofile' => 'profiles#myprofile'
   get '/admin' => 'user#admin_login'
   get '/logout' => 'user#logout'
-
+  get '/checkout' => 'cart#createOrder'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

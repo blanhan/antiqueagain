@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   attr_accessor :remember_me
 
   has_one :profiles
+  has_many :orders
 end
