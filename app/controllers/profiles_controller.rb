@@ -1,12 +1,10 @@
 class ProfilesController < ApplicationController
-  before_filter :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def myprofile
     profile = Profile.find_by_user_id(current_user.id)
 
-    if
-    profile.nil?
+    if profile.nil?
       redirect_to "/profiles/new"
     else
       @user = User.find(current_user.id)
@@ -15,27 +13,19 @@ class ProfilesController < ApplicationController
     end
   end
 
+
   # GET /profiles
   # GET /profiles.json
   def index
     @profiles = Profile.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @profiles }
-    end
   end
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @profile = Profile.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @profile }
-    end
   end
 
+  # GET /profiles/new
   def new
     @user = User.find(current_user.id)
     @profile = Profile.new
@@ -49,18 +39,17 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @profile= Profile.find(params[:id])
   end
 
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(params[:id])
+    @profile = Profile.new(profile_params)
 
     respond_to do |format|
       if @profile.save
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
-        format.json {render json: @profile, status: :created, location: @profile }
+        format.json { render action: 'show', status: :created, location: @profile }
       else
         format.html { render action: 'new' }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
@@ -85,7 +74,6 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   def destroy
-    @profile = Profile.find(params[:id])
     @profile.destroy
     respond_to do |format|
       format.html { redirect_to profiles_url }
@@ -94,14 +82,13 @@ class ProfilesController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_profile
-    @profile = Profile.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_profile
+      @profile = Profile.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def profile_params
-    params.require(:profile).permit(:firstname, :lastname, :address, :mobile, :user_id)
-  end
-
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def profile_params
+      params.require(:profile).permit(:firstname, :lastname, :address, :mobile, :user_id)
+    end
 end

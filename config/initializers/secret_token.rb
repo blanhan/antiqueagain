@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Antiqueagain::Application.config.secret_key_base = '259d026cac3a2de8ba947e0a5f4040a4e7e77db4d0ccca97ff58580322e86ac7f6434e7dd80451514f804081c2b7d74369794eb6f66fac40f9cdc126aaf9591b'
+UserAntique::Application.config.secret_key_base = '79a901467e4ef30bf4e0c0949e6fb83537543875e46766044378160687b74445f2490fa4ba33d5c9b93722246dc615bfa720e2869610f9cfa1ec93647688acc3'

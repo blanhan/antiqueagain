@@ -1,41 +1,29 @@
-Antiqueagain::Application.routes.draw do
+UserAntique::Application.routes.draw do
   resources :profiles
 
-  get "orderitems/index"
-  get "orderitems/show"
-  get "orderitems/new"
-  get "orderitems/edit"
-
-  devise_for :users do
-    resources :orders
-  end
-
-  resources :orders do
-    resources :orderitems
-  end
-
-  resources :items
-
+  devise_for :users
   get "cart/index"
   get "site/about"
   get "site/contact"
   get "site/home"
-
-  get '/cart' => 'cart#index'
-  get '/cart/:id' => 'cart#add'
+  resources :items
 
   get '/about' => 'site#about'
   get '/contact' => 'site#contact'
   get '/home' => 'site#home'
-  get '/cart/remove/:id' => 'cart#remove'
-  get '/clearCart' => 'cart#clearCart'
-  get '/checkout' => 'cart#createOrder'
-  get '/myprofile' => 'profiles#myprofile'
+
+  get '/cart' => 'site#index'
+  get '/cart/:id' => 'cart#add'
   get '/category/:id' => 'items#category'
   get '/search' => 'items#search'
 
+  get '/cart/remove/:id' => 'cart#remove'
+  get '/clearCart' => 'cart#clearCart'
+
+  get '/myprofile' => 'profiles#myprofile'
   get '/admin' => 'user#admin_login'
   get '/logout' => 'user#logout'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

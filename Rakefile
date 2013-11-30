@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Antiqueagain::Application.load_tasks
+UserAntique::Application.load_tasks

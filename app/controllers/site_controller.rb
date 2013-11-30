@@ -1,6 +1,5 @@
 class SiteController < ApplicationController
   def about
-    redirect_to :action => :about
   end
 
   def contact
@@ -8,5 +7,4 @@ class SiteController < ApplicationController
 
   def home
   end
-
 end
