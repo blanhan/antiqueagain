@@ -92,6 +92,20 @@ class ItemsController < ApplicationController
     end
   end
 
+  def add_to_cart
+    @cart = get_cart
+    @cart.add_to_cart(Item.find(params[:id]))
+  end
+
+  def get_cart
+    if session[:cart]
+      return session[:cart]
+    else
+      session[:cart] = Cart.new
+      return session[:cart]
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

@@ -1,0 +1,10 @@
+<h1>Your Order/ Cart</h1>
+<ul>
+  <% for item in @cart.items %>
+      <li><%= (item.title) %>
+  <% end %>
+</ul>
+
+<%= link_to "Return to Shopping", :action => "index" %>
+
+<%= link_to "Clear Cart", :action => "clear_cart" %>
