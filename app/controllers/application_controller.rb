@@ -5,4 +5,11 @@ class ApplicationController < ActionController::Base
     "/myprofile"
   end
 
+  def ensure_admin
+    unless current_user && current_user.admin?
+      redirect_to "/"
+      flash[:error] = "You need to be an admin to access this page!"
+    end
+  end
+
 end

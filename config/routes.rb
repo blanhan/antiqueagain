@@ -26,7 +26,7 @@ UserAntique::Application.routes.draw do
   get '/contact' => 'site#contact'
   get '/home' => 'site#home'
 
-  get '/cart' => 'site#index'
+  get '/cart' => 'cart#index'
   get '/cart/:id' => 'cart#add'
   get '/category/:id' => 'items#category'
   get '/search' => 'items#search'

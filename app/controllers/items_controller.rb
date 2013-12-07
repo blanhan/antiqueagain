@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   #before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
   before_filter :ensure_admin, :only => [:new, :create, :edit, :destroy]
 
 
@@ -13,6 +13,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @item = Item.find(params[:id])
   end
 
   # GET /items/new

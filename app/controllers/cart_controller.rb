@@ -1,14 +1,14 @@
 class CartController < ApplicationController
   before_filter :authenticate_user!
 
-  def add
-    id = params[:id]
+   def add
+    	id = params[:id]
 
-    cart = session[:cart] ||= {}
-    cart[id] = (cart[id] || 0) + 1
+     cart = session[:cart] ||= {}
+     cart[id] = (cart[id] || 0) + 1
 
-    redirect_to :action => :index
-  end
+     redirect_to :action => :index
+   end
 
   def index
     @cart = session[:cart] || {}
@@ -41,19 +41,21 @@ class CartController < ApplicationController
   end
 
   def createOrder
+  	puts("555555555555555555555555555555555555555555555555")
     # Step 1: Get the current user
-    @user = User.find(current_user.id)
+    # @user = User.find(.id)
+    puts(current_user.id)
 
     # Step 2: Create a new order and associate it with the current user
-    @order = @user.orders.build(:order_date => DateTime.now)
+    @order = current_user.orders.build
     @order.save
 
     # Step 3: For each item in the cart, create a new item on the order!!
     @cart = session[:cart] || {} # Get the content of the Cart
     @cart.each do | id, quantity |
       item = Item.find_by_id(id)
-      @orderitem = @order.orderitems.build(:item_id => item.id, :title => item.title, :description => item.description, :quantity => quantity, :price => item.price)
-      @orderitem.save
+      @orderitem = @order.orderitems.build(:item_id => item.id, :quantity => quantity, :price => item.price)
+      @orderitem.save()
     end
   end
 

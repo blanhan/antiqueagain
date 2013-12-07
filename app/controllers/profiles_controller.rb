@@ -1,15 +1,14 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_filter :ensure_admin, only: [:index]
 
   def myprofile
-    profile = Profile.find_by_user_id(current_user.id)
+    @profile = Profile.find_by_user_id(current_user.id)
 
-    if profile.nil?
-      redirect_to "/profiles/new"
+    if @profile.nil?
+      redirect_to '/profiles/new'
     else
-      @user = User.find(current_user.id)
-      @profile = Profile.find_by_user_id(@user.id)
-      redirect_to "/profiles/#{@profile.id}"
+      render action: 'show'
     end
   end
 
