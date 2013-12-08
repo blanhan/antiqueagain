@@ -57,11 +57,13 @@ class CartController < ApplicationController
       @orderitem = @order.orderitems.build(:item_id => item.id, :quantity => quantity, :price => item.price)
       @orderitem.save()
     end
+
+    session[:cart] = nil
   end
 
-  def checkout
-    flash[:notice] = "CHECKOUT IS NOT IMPLEMENTED YET!!!"
-    redirect_to :action => :index
-  end
+  #def checkout
+  #  flash[:notice] = "CHECKOUT IS NOT IMPLEMENTED YET!!!"
+  #  redirect_to :action => :index
+  #end
 
 end
